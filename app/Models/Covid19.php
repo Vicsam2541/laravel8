@@ -9,4 +9,8 @@ class Covid19 extends Model
 {
     use HasFactory;
     protected $table = "covid19s";
+    
+    protected $fillable = ["date","country","total","active","death","recovered","total_in_1m","remark"];    
+//Primary Key
+ 	protected $primaryKey = "id";
 }
