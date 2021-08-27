@@ -20,10 +20,14 @@ Route::get('/', function () {
 Route::get("/homepage", function () {
     return "<h1>This is home page</h1>";
 });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::get("/blog/{id}", function ($id) {
     return "<h1>This is blog page : {$id} </h1>";
 });
+require __DIR__.'/auth.php';
 
 Route::get("/blog/{id}/edit", function ($id) {
     return "<h1>This is blog page : {$id} for edit</h1>";
@@ -69,9 +73,14 @@ Route::get("/gallery/ant", function () {
     return view("test/ant", compact("ant"));
 });
 
-Route::get("/teacher", function () {
-    return view("teacher");
-});
+Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
+    Route::get('/teacher', function () {
+        return view('teacher/index');
+    });
+    
+    Route::resource('/covid19','Covid19Controller');
+    });
+    
 
 Route::get("/student", function () {
     return view("student");
