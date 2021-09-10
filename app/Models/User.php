@@ -45,5 +45,13 @@ class User extends Authenticatable
     public function profile(){
         return $this->hasOne(Profile::class, 'user_id', 'id' );
     }
+    public function vehicles(){
+        return $this->hasMany(Vehicle::class, 'user_id', 'id');
+    }
+ 
+    public function user(){
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+ 
  
 }
